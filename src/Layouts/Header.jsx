@@ -1,22 +1,28 @@
 import { Link } from "react-router-dom";
 import HambNav from "../components/HambNav";
 import { useState } from "react";
+import { ChevronDownIcon } from "@heroicons/react/24/solid";
+import { CakeIcon } from "@heroicons/react/16/solid";
+
+
 
 export default function Header() {
 	const [menuOpen, setMenuOpen] = useState(false);
 
 	return (
-		<header className="flex  md:flex-row w-full justify-between items-center p-4">
+		<header className="flex md:flex-row w-full justify-between items-center p-4">
 			<div className="flex flex-wrap gap-2 md:gap-4 items-center md:mb-0">
 				<h1 className="text-red-600 font-bold ml-0 text-2xl md:text-3xl md:mr-12 md:ml-8 ">
 					FKFLX
 				</h1>
-				<div>
+				<div className="z-50">
           <button
             className="flex items-center block ml-4 md:hidden"
             onClick={() => setMenuOpen(!menuOpen)}
           >
-            Navegar
+            <span>Navegar</span>
+            <CakeIcon className="w-4 h-4"/>
+            <ChevronDownIcon className={`w-4 h-4 ml-1 transition-transform ${menuOpen ? "rotate-180" : ""}`}/>
           </button>
           {menuOpen ? (
             <HambNav />
