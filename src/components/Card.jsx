@@ -1,11 +1,11 @@
-export default function Card({ data }){
-  return(
-    <div className="flex">
-      {data.results.map((itens) => (
-        <div key={itens.id}>
-          <img src={`https://image.tmdb.org/t/p/w500${itens.poster_path}`} alt={itens.title} />
-        </div>
-      ))}
-    </div>
-  )
+export default function Card({ item }) {
+	return (
+		<div >
+			<img
+				src={`https://image.tmdb.org/t/p/w342${item.poster_path}`}
+				alt={item.title}
+				className=" md:w-70 md:h-40 rounded-[.25rem]"
+			/>
+		</div>
+	);
 }
