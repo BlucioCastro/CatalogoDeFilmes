@@ -3,8 +3,10 @@ import Card from "./Card";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import "../css/custom-swiper-bullet.css";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination } from "swiper/modules";
+import { Autoplay, Navigation, Pagination } from "swiper/modules";
+
 
 export default function Carousel({ title, url }) {
 	const [data, setData] = useState(null);
@@ -39,33 +41,35 @@ export default function Carousel({ title, url }) {
 	if (error) return <div>Error: {error}</div>;
 
 	return (
-		<div className="mx-12">
-			<div>
-				<h1 className="text-2xl font-medium pb-4">{title}</h1>
-			</div>
-			<Swiper
-				modules={[Navigation, Pagination]}
-				spaceBetween={12}
-				loop={true}
-				slidesPerView={1}
-				navigation
-				// pagination={{clickable: true}}
-				className="w-full"
-				breakpoints={{
-						375: {slidesPerView: 2},
-						640: {slidesPerView: 3},
-						768: {slidesPerView: 4},
-						1024: {slidesPerView: 6},
-				}}
-			>
-				<div className="mx-8">
-					{data.results.map((item) => (
-						<SwiperSlide key={item.id} className="">
-							<Card item={item} />
-						</SwiperSlide>
-					))}
+		<>
+			<div className="mx-12 mb-8">
+				<div>
+					<h1 className="text-2xl font-medium pb-4">{title}</h1>
 				</div>
-			</Swiper>
-		</div>
+				<Swiper
+					modules={[Navigation, Pagination]}
+					spaceBetween={12}
+					loop={true}
+					slidesPerView={1}
+					navigation
+					// pagination={{clickable: true}}
+					className="w-full"
+					breakpoints={{
+						375: { slidesPerView: 2 },
+						640: { slidesPerView: 3 },
+						768: { slidesPerView: 4 },
+						1024: { slidesPerView: 6 },
+					}}
+				>
+					<div className="mx-8">
+						{data.results.map((item) => (
+							<SwiperSlide key={item.id} className="">
+								<Card item={item} />
+							</SwiperSlide>
+						))}
+					</div>
+				</Swiper>
+			</div>
+		</>
 	);
 }

@@ -1,0 +1,77 @@
+import { useEffect, useState } from "react";
+import { InformationCircleIcon } from "@heroicons/react/24/solid";
+
+export default function Poster() {
+	const [banner, setBanner] = useState(null); // estado para guardar a imagem
+	const apiKey = import.meta.env.VITE_TMDB_API_KEY;
+
+	useEffect(() => {
+		async function fetchPages(pagesToFetch = 3) {
+			let all = [];
+
+			// busca a página 1
+			const first = await fetch(
+				`https://api.themoviedb.org/3/movie/top_rated?api_key=${apiKey}&page=1`
+			);
+			const firstJson = await first.json();
+			all = firstJson.results || [];
+
+			// busca páginas 2..N (se houver)
+			for (let p = 2; p <= pagesToFetch; p++) {
+				const res = await fetch(
+					`https://api.themoviedb.org/3/movie/top_rated?api_key=${apiKey}&page=${p}`
+				);
+				const json = await res.json();
+				all = all.concat(json.results || []);
+			}
+
+			// filtrar os que têm backdrop
+			const withBackdrop = all.filter((item) => item.backdrop_path);
+
+			// mapear para URLs completas
+			const urls = withBackdrop.map(
+				(item) => `https://image.tmdb.org/t/p/w1280${item.backdrop_path}`
+			);
+
+			// escolher um aleatório
+			// if (urls.length > 0) {
+			// 	const idx = Math.floor(Math.random() * urls.length);
+			// 	setBanner(urls[idx]); // salva no estado
+			// }
+			const randomMovie =
+				withBackdrop[Math.floor(Math.random() * withBackdrop.length)];
+			setBanner(randomMovie);
+		}
+
+		fetchPages();
+	}, [apiKey]); // roda só no mount
+
+	return (
+		<>
+			{banner ? (
+				<div className="relative w-full h-[50vh] sm:h-[60vh] md:h-[70vh] lg:h-[80vh]">
+					<img
+						src={`https://image.tmdb.org/t/p/w1280${banner.backdrop_path}`}
+						alt={banner.title}
+						className="w-full h-full object-cover"
+					/>
+					<div className="absolute inset-0 bg-gradient-to-b from-transparent to-bgDark"></div>
+
+					{/* Texto sobre a imagem */}
+					<div className="absolute bottom-12 left-8 z-10 text-white max-w-lg">
+						<h1 className="text-2xl md:text-5xl font-bold">{banner.title}</h1>
+						<p className="hidden md:block mt-4 text-lg">{banner.overview}</p>
+						<div>
+							<button className="bg-[#4b4b4b69] px-8 py-4 mt-4 flex items-center gap-3 text-2xl rounded-[.25rem]">
+								<InformationCircleIcon className="w-6 h-6" />
+								Mais Informações
+							</button>
+						</div>
+					</div>
+				</div>
+			) : (
+				<p>Carregando banner...</p>
+			)}
+		</>
+	);
+}
