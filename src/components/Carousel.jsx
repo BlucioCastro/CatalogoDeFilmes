@@ -19,14 +19,18 @@ export default function Carousel({ title, url }) {
 		const fetchData = async () => {
 			try {
 				setLoading(true);
-				const response = await fetch(
-					`https://api.themoviedb.org/3${url}?api_key=${apiKey}`
-				);
-				if (!response.ok) {
-					throw new Error(`HTTP Error! status: ${response.status}`);
+				let all = []
+				for(let p = 1; p<=3; p++){
+					const response = await fetch(
+						`https://api.themoviedb.org/3${url}?api_key=${apiKey}&page=${p}`
+					);
+					if (!response.ok) {
+						throw new Error(`HTTP Error! status: ${response.status}`);
+					}
+					const result = await response.json();
+					all = all.concat(result.results || [])
 				}
-				const result = await response.json();
-				setData(result);
+				setData(all);
 				setLoading(false);
 			} catch (err) {
 				setError(err.message);
@@ -62,7 +66,7 @@ export default function Carousel({ title, url }) {
 					}}
 				>
 					<div className="mx-8">
-						{data.results.map((item) => (
+						{data.map((item) => (
 							<SwiperSlide key={item.id} className="">
 								<Card item={item} />
 							</SwiperSlide>

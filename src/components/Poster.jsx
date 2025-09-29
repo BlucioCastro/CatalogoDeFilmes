@@ -62,7 +62,7 @@ export default function Poster() {
 						<h1 className="text-2xl md:text-5xl font-bold">{banner.title}</h1>
 						<p className="hidden md:block mt-4 text-lg">{banner.overview}</p>
 						<div>
-							<button className="bg-[#4b4b4b69] px-8 py-4 mt-4 flex items-center gap-3 text-2xl rounded-[.25rem]">
+							<button className="bg-[#4b4b4b69] px-8 py-4 mt-4 flex items-center gap-3 text-2xl rounded-[.25rem] cursor-pointer">
 								<InformationCircleIcon className="w-6 h-6" />
 								Mais Informações
 							</button>

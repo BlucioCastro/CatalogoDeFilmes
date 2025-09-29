@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import HambNav from "../components/HambNav";
 import { useState } from "react";
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
-import { CakeIcon } from "@heroicons/react/16/solid";
 
 
 
@@ -10,7 +9,7 @@ export default function Header() {
 	const [menuOpen, setMenuOpen] = useState(false);
 
 	return (
-		<header className="flex md:flex-row w-full justify-between items-center p-4">
+		<header className="flex md:flex-row w-full justify-between items-center p-4 fixed z-50 bg-black">
 			<div className="flex flex-wrap gap-2 md:gap-4 items-center md:mb-0">
 				<h1 className="text-red-600 font-bold ml-0 text-2xl md:text-3xl md:mr-12 md:ml-8 ">
 					FKFLX
@@ -47,7 +46,7 @@ export default function Header() {
 				<input
 					type="search"
 					placeholder="Titulos, generos"
-					className="border-2 w-full md:w-64 px-3 py-1 text-sm"
+					className="border-2 w-40 md:w-64 px-3 py-1 text-sm md:mr-12"
 				/>
 			</form>
 		</header>
