@@ -9,8 +9,7 @@ import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import { Link } from "react-router-dom";
 import Loading from "./Loading";
 
-
-export default function Carousel({ title, url }) {
+export default function Carousel({ title, url, pageNumber, pages }) {
 	const [data, setData] = useState(null);
 	const [error, setError] = useState(null);
 	const [loading, setLoading] = useState(false);
@@ -21,18 +20,35 @@ export default function Carousel({ title, url }) {
 		const fetchData = async () => {
 			try {
 				setLoading(true);
-				let all = []
-				for(let p = 1; p<=3; p++){
+				let all = [];
+
+				if (pageNumber) {
 					const response = await fetch(
-						`https://api.themoviedb.org/3${url}?api_key=${apiKey}&page=${p}`
+						`https://api.themoviedb.org/3${url}?api_key=${apiKey}&page=${pageNumber}`
 					);
 					if (!response.ok) {
 						throw new Error(`HTTP Error! status: ${response.status}`);
 					}
 					const result = await response.json();
-					all = all.concat(result.results || [])
+					all = all.concat(result.results || []);
+				} else {
+					const totalPages = pages || 3; // default: 3 pages
+
+					for (let p = 1; p <= totalPages; p++) {
+						const response = await fetch(
+							`https://api.themoviedb.org/3${url}?api_key=${apiKey}&page=${p}`
+						);
+						const result = await response.json();
+						all = all.concat(result.results || []);
+					}
 				}
-				const unique = all.filter((item, index, self) => index ===self.findIndex((t) => t.id === item.id))
+
+				// remove duplicates
+				const unique = all.filter(
+					(item, index, self) =>
+						index === self.findIndex((t) => t.id === item.id)
+				);
+
 				setData(unique);
 				setLoading(false);
 			} catch (err) {
@@ -42,12 +58,12 @@ export default function Carousel({ title, url }) {
 			}
 		};
 		fetchData();
-	}, [url, apiKey]);
-	if (!data) return <Loading/>;
-	if (loading) return <Loading/>;
+	}, [url, apiKey, pages, pageNumber]);
+	if (!data) return <Loading />;
+	if (loading) return <Loading />;
 	if (error) return <div>Error: {error}</div>;
 
-	const mediaType = url.includes("/tv") ? "tv" : "movie"
+	const mediaType = url.includes("/tv") ? "tv" : "movie";
 	return (
 		<>
 			<div className="mx-12 mb-8">
@@ -57,16 +73,17 @@ export default function Carousel({ title, url }) {
 				<Swiper
 					modules={[Navigation, Pagination]}
 					spaceBetween={12}
-					loop={true}
 					slidesPerView={1}
+					slidesPerGroup={6}
+					loop={false}
 					navigation
-					// pagination={{clickable: true}}
 					className="w-full"
+					watchOverflow={true} 
 					breakpoints={{
-						375: { slidesPerView: 2 },
-						640: { slidesPerView: 3 },
-						768: { slidesPerView: 4 },
-						1024: { slidesPerView: 6 },
+						375: { slidesPerView: 2, slidesPerGroup: 2 },
+						640: { slidesPerView: 3, slidesPerGroup: 3 },
+						768: { slidesPerView: 4, slidesPerGroup: 4 },
+						1024: { slidesPerView: 6, slidesPerGroup: 6 },
 					}}
 				>
 					<div className="mx-8">

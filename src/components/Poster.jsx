@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { InformationCircleIcon } from "@heroicons/react/24/solid";
 import { Link } from "react-router-dom";
 
-export default function Poster() {
+export default function Poster( {type, category} ) {
 	const [banner, setBanner] = useState(null); // estado para guardar a imagem
 	const apiKey = import.meta.env.VITE_TMDB_API_KEY;
 
@@ -12,7 +12,7 @@ export default function Poster() {
 
 			// busca a página 1
 			const first = await fetch(
-				`https://api.themoviedb.org/3/movie/top_rated?api_key=${apiKey}&page=1`
+				`https://api.themoviedb.org/3/${type}/${category}?api_key=${apiKey}&page=1`
 			);
 			const firstJson = await first.json();
 			all = firstJson.results || [];
@@ -61,7 +61,7 @@ export default function Poster() {
 						<div>
 							<Link to={`/details/movie/${banner.id}`} className="bg-[#4b4b4b69] px-4 py-4 md:px-8 md:py-4 md:w-80 mt-4 flex items-center gap-3 text-2xl rounded-[.25rem] cursor-pointer">
 								<InformationCircleIcon className="w-6 h-6 " />
-								Mais Informações
+								More information
 							</Link>
 						</div>
 					</div>

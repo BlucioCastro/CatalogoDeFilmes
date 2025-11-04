@@ -6,6 +6,7 @@ import Movies from "../pages/Movies";
 import MyList from "../pages/MyList";
 import Chosed from "../pages/Chosed";
 
+
 const router = createBrowserRouter([
 	{
 		path: "/",
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
 				path: "/myList",
 				element: <MyList />,
 			},
+			{
+				path: "/search",
+				element: <Search />
+			}
 		],
 	},
 ]);

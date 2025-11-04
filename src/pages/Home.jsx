@@ -1,11 +1,12 @@
 import Carousel from "../components/Carousel";
 import Poster from "../components/Poster";
 
+
 export default function Home() {
 	return (
 		<div> 
-      <Poster />
-			<Carousel title="Séries de TV populares" url="/tv/popular" />
+      <Poster type="movie" category="top_rated" />
+			<Carousel title="Séries de TV populares" url="/tv/popular" pages={3}/>
 			<Carousel title="Populares" url="/movie/popular" />
 			<Carousel title="Melhores avaliados" url="/movie/top_rated" />
 			<Carousel title="Séries melhores avaliadas" url="/tv/top_rated" />
