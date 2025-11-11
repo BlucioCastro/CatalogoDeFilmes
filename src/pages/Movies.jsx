@@ -16,6 +16,7 @@ export default function Movies() {
 	let currentCategory = listOfCategories.find(
 		(item) => item.to === `/movie/${category}`
 	);
+		
 	return (
 		<>
 			<Poster type="movie" category={category} />
@@ -23,8 +24,9 @@ export default function Movies() {
 				<div className="border-2 px-4">
 					<button
 						onClick={() => setIsOpen(!isOpen)}
-						className="font-medium cursour-pointer flex items-center gap-2"
+						className="font-medium cursor-pointer flex items-center gap-2"
 					>
+						
 						{currentCategory?.label || category}
 						<ChevronDownIcon
 							className={`w-4 h-4 transition-transform ${

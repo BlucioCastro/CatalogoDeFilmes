@@ -5,6 +5,7 @@ import Series from "../pages/Series";
 import Movies from "../pages/Movies";
 import MyList from "../pages/MyList";
 import Chosed from "../pages/Chosed";
+import Search from "../pages/Search";
 
 
 const router = createBrowserRouter([

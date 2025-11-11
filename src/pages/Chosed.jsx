@@ -10,13 +10,15 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
 import Loading from "../components/Loading";
 import Modal from "../components/Modal";
+import { useMyList } from "../context/MylistContext";
 
 export default function Chosed() {
 	const { type, id } = useParams();
 	const [data, setData] = useState(null);
 	const [dataCast, setDataCast] = useState(null);
-	const [showModal, setShowModal] = useState(false)
+	const [showModal, setShowModal] = useState(false);
 	const navigate = useNavigate();
+	const { mylist, addToList, removeFromList } = useMyList();
 
 	const apiKey = import.meta.env.VITE_TMDB_API_KEY;
 	useEffect(() => {
@@ -29,9 +31,6 @@ export default function Chosed() {
 			);
 			const resCast = await castPage.json();
 			const res = await page.json();
-			console.log(res);
-			console.log("esse é o type", type);
-			console.log(resCast);
 			setDataCast(
 				resCast.cast.map((item) => ({
 					...item,
@@ -50,7 +49,8 @@ export default function Chosed() {
 			return anonimous;
 		}
 	}
-
+	const isInList =
+		data && mylist.some((i) => i.id === data.id && i.type === type);
 	return (
 		<>
 			<div>
@@ -130,13 +130,44 @@ export default function Chosed() {
 								)}
 							</div>
 							<div className="md:col-2 row-4 md:ml-24 flex flex-row gap-4 mt-4 items-start">
-								<HeartIcon className="w-6 h-6 cursor-pointer" />
-								<button className="flex items-center cursor-pointer" onClick={() => setShowModal(!showModal)}>
+								<button
+									onClick={() => {
+										if (!data) return;
+
+										if (isInList) {
+											removeFromList({ id: data.id, type });
+										} else {
+											addToList({
+												id: data.id,
+												type,
+												title: data.title || data.name,
+												poster_path: data.poster_path,
+												backdrop_path: data.backdrop_path,
+											});
+										}
+									}}
+								>
+									<HeartIcon
+										className={`w-6 h-6 cursor-pointer ${
+											isInList ? "text-orange-500" : "text-white"
+										}`}
+									/>
+								</button>
+								<button
+									className="flex items-center cursor-pointer"
+									onClick={() => setShowModal(!showModal)}
+								>
 									<PlayIcon className="w-6 h-6 " />
 									<span className="font-medium">Play Trailer</span>
 								</button>
 							</div>
-							{showModal && <Modal type={type} id={id} closeModal={() => setShowModal(!showModal)}/>}
+							{showModal && (
+								<Modal
+									type={type}
+									id={id}
+									closeModal={() => setShowModal(!showModal)}
+								/>
+							)}
 							<div className="md:col-1">
 								<h2 className="text-[1.25rem] font-medium pt-4">Overview</h2>
 								<p>{data.overview}</p>
