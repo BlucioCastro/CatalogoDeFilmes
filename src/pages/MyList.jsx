@@ -8,7 +8,6 @@ export default function MyList() {
   const { mylist } = useContext(MyListContext);
 
   if (!mylist || mylist.length === 0) {
-    // return <div className="pt-20 text-center text-white">Sua lista está vazia</div>;
     return <div className="flex justify-center items-center h-full pt-45"><img src={emptyList} alt="empty list" className="w-[20rem] md:w-[25rem] lg:w-[35rem] rounded-[.5rem]"/></div>
   }
 

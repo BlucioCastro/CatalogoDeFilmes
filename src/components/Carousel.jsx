@@ -32,7 +32,7 @@ export default function Carousel({ title, url, pageNumber, pages }) {
 					const result = await response.json();
 					all = all.concat(result.results || []);
 				} else {
-					const totalPages = pages || 3; // default: 3 pages
+					const totalPages = pages || 3;
 
 					for (let p = 1; p <= totalPages; p++) {
 						const response = await fetch(
@@ -43,7 +43,6 @@ export default function Carousel({ title, url, pageNumber, pages }) {
 					}
 				}
 
-				// remove duplicates
 				const unique = all.filter(
 					(item, index, self) =>
 						index === self.findIndex((t) => t.id === item.id)

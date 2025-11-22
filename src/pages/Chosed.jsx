@@ -80,7 +80,6 @@ export default function Chosed() {
 						/>
 					</div>
 
-					{/* versão mobile do poster */}
 					<div className="md:hidden flex justify-center mt-6">
 						<img
 							src={`https://image.tmdb.org/t/p/w342${data.poster_path}`}
@@ -188,7 +187,6 @@ export default function Chosed() {
 									loop={false}
 									slidesPerView={1}
 									navigation
-									// pagination={{clickable: true}}
 									className="w-full"
 									breakpoints={{
 										375: { slidesPerView: 3 },

@@ -24,15 +24,13 @@ export default function SearchPage() {
 
   const apiKey = import.meta.env.VITE_TMDB_API_KEY;
 
-  const loaderRef = useRef(null); // ✅ para o IntersectionObserver
+  const loaderRef = useRef(null);
 
-  // Reset quando o usuário digitar algo novo
   useEffect(() => {
     setResults([]);
     setPage(1);
   }, [query]);
 
-  // ✅ Função para buscar dados (página 1, 2, 3…)
   async function fetchData(currentPage) {
     const clean = query.trim().toLowerCase();
     if (!clean) return;
@@ -73,12 +71,10 @@ export default function SearchPage() {
     setLoading(false);
   }
 
-  // Busca a cada mudança de página
   useEffect(() => {
     fetchData(page);
   }, [page]);
 
-  // ✅ IntersectionObserver — carregamento automático ao final
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -120,7 +116,6 @@ export default function SearchPage() {
         })}
       </div>
 
-      {/* ✅ Loader invisível que dispara o infinite scroll */}
       <div ref={loaderRef} className="h-10 flex justify-center items-center my-10">
         {loading && <span className="text-gray-400">Carregando...</span>}
       </div>

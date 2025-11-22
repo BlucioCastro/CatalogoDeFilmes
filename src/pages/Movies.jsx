@@ -1,8 +1,8 @@
 import { useState } from "react";
 import Poster from "../components/Poster";
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
-import HambNav from "../components/HambNav";
 import Carousel from "../components/Carousel";
+import Menu from "../components/MenuClassification";
 
 export default function Movies() {
 	const [category, setCategory] = useState("top_rated");
@@ -21,10 +21,10 @@ export default function Movies() {
 		<>
 			<Poster type="movie" category={category} />
 			<div className=" ml-12 mb-4 flex gap-2">
-				<div className="border-2 px-4">
+				<div className="border-2  rounded-[.25rem] w-[10.5rem]">
 					<button
 						onClick={() => setIsOpen(!isOpen)}
-						className="font-medium cursor-pointer flex items-center gap-2"
+						className="font-medium cursor-pointer  flex items-center gap-2 mx-auto"
 					>
 						
 						{currentCategory?.label || category}
@@ -35,7 +35,7 @@ export default function Movies() {
 						/>
 					</button>
 					{isOpen && (
-						<HambNav
+						<Menu
 							links={listOfCategories}
 							onSelect={(path) => {
 								setCategory(path.split("/").pop());

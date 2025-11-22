@@ -22,7 +22,6 @@ export default function Series() {
 		<>
 			<Poster type="tv" category={category} />
 			<div className="ml-12 mb-4 flex gap-2 items-center">
-				{/* <p className="text-[1.1rem] font-medium">Currently in: </p> */}
 				<div className="border-2  rounded-[.25rem] w-[10.5rem]">
 					<button
 						onClick={() => setIsOpen(!isOpen)}

@@ -46,14 +46,12 @@ export default function Modal({ closeModal, type, id }) {
 					✕
 				</button>
 
-				{/* LOADING */}
 				{loading && (
 					<div className="flex justify-center items-center h-[400px]">
 						<div className="animate-spin rounded-full h-12 w-12 border-t-4 border-white"></div>
 					</div>
 				)}
 
-				{/* TRAILER FOUND */}
 				{!loading && trailerUrl && (
 					<iframe
 						width="100%"
@@ -65,7 +63,6 @@ export default function Modal({ closeModal, type, id }) {
 					></iframe>
 				)}
 
-				{/* NOT FOUND */}
 				{!loading && notFound && (
 					<div className="flex justify-center">
 						<img
