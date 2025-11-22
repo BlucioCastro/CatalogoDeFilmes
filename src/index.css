@@ -21,4 +21,7 @@
 	.swiper-button-prev::after {
 		@apply text-white;
 	}
+	.listItems{
+		@apply cursor-pointer hover:text-white;
+	}
 }

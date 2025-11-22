@@ -39,9 +39,11 @@ export default function Header() {
 	return (
 		<header className="flex md:flex-row w-full justify-between items-center p-4 fixed z-40 bg-black">
 			<div className="flex flex-wrap gap-2 md:gap-4 items-center md:mb-0">
-				<h1 className="text-[#FF6B35] font-bold ml-0 text-2xl md:text-[1.7rem] md:mr-4 md:ml-4 ">
-					TMDb+
-				</h1>
+				<a onClick={()=> window.scrollTo({top: 0, behavior:"smooth"})} className="cursor-pointer">
+          <h1 className="text-[#FF6B35] font-bold ml-0 text-2xl md:text-[1.7rem] md:mr-4 md:ml-4 ">
+            TMDb+
+          </h1>
+        </a>
 				<div className="z-50">
           <button
             className="flex items-center block ml-4 md:hidden"
