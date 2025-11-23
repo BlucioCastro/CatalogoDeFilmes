@@ -84,7 +84,7 @@ export default function Chosed() {
 						<img
 							src={`https://image.tmdb.org/t/p/w342${data.poster_path}`}
 							alt=""
-							className="w-40 rounded-md border-2 border-black shadow-md"
+							className="w-60 rounded-md border-2 border-black shadow-md"
 						/>
 					</div>
 					<div className="mx-4">
@@ -189,6 +189,7 @@ export default function Chosed() {
 									navigation
 									className="w-full"
 									breakpoints={{
+										320: { slidesPerView: 3},
 										375: { slidesPerView: 3 },
 										640: { slidesPerView: 6 },
 										768: { slidesPerView: 7 },

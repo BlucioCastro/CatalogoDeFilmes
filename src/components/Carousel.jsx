@@ -79,6 +79,7 @@ export default function Carousel({ title, url, pageNumber, pages }) {
 					className="w-full"
 					watchOverflow={true} 
 					breakpoints={{
+						320: {slidesPerView: 2, slidesPerGroup: 2},
 						375: { slidesPerView: 2, slidesPerGroup: 2 },
 						640: { slidesPerView: 3, slidesPerGroup: 3 },
 						768: { slidesPerView: 4, slidesPerGroup: 4 },
