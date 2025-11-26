@@ -76,7 +76,7 @@ export default function Chosed() {
 						<img
 							src={`https://image.tmdb.org/t/p/w500${data.poster_path}`}
 							alt=""
-							className=" absolute left-20 top-1/2 -translate-y-1/2 h-100 rounded-[.5rem] border-4 border-black shadow-black shadow-md md:h-70 lg:h-100 xl:h-115 2xl:h-115"
+							className=" absolute left-20 top-1/2 -translate-y-1/2 h-60 rounded-[.5rem] border-4 border-black shadow-black shadow-md md:h-70 lg:h-95 xl:h-100 2xl:h-115"
 						/>
 					</div>
 
